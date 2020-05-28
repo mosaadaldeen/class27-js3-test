@@ -12,18 +12,17 @@ Write a function that:
 async function displayInfo() {
     try {
         const url = 'https://randomuser.me/api?results=5';
-        await fetch(url).then(response => response.json())
-            .then(data => {
-                const body = document.querySelector('body');
-                const ulElement = document.createElement('ul');
-                const liElement = document.createElement('li');
-                const fullName = `${data.results[0].name.first} ${data.results[0].name.last}`;
-                const email = `${data.results[0].email}`;
-                const city = `${data.results[0].location.city}`;
-                liElement.innerText = `${fullName} -- ${email} -- ${city}`;
-                body.appendChild(ulElement);
-                ulElement.appendChild(liElement);
-            });
+        const fetchUrl = await fetch(url);
+        const data = await fetchUrl.json();
+        const body = document.querySelector('body');
+        const ulElement = document.createElement('ul');
+        const liElement = document.createElement('li');
+        const fullName = `${data.results[0].name.first} ${data.results[0].name.last}`;
+        const email = `${data.results[0].email}`;
+        const city = `${data.results[0].location.city}`;
+        liElement.innerText = `${fullName} -- ${email} -- ${city}`;
+        body.appendChild(ulElement);
+        ulElement.appendChild(liElement);
     } catch (error) {
         console.log(error);
     }
@@ -115,6 +114,7 @@ console.log(tesla.getModel());
 We use classes as a blueprint to describe a set of instructions or functions,
 like providing properties and methods, and when we need to call that class,
 we Instantiate that class multiple times with different properties like above.  
+and they are objects that can be used in different places in the code.
 */
 
 /*
@@ -129,11 +129,11 @@ Expected output: ["Cookies", "Flowers", "Zebras"]
 
 Make use of the following array:
 */
-function sortNames(arr) {
+function sortNamesAlphabetically(arr) {
     return arr.sort();
 }
 const fruits = ['Strawberry', 'Apple', 'Tangerine', 'Banana', 'Melon', 'Pear'];
-console.log(sortNames(fruits));
+console.log(sortNamesAlphabetically(fruits));
 
 /*
 5.
@@ -144,16 +144,19 @@ Using JavaScript only (adding HTML to index.html is NOT allowed), create a funct
 - Uses the following image URL: https://avatars3.githubusercontent.com/u/20858568?s=200&v=4
 */
 
-const body = document.querySelector('body');
-const button = document.createElement('button');
-button.innerHTML = 'click me';
-body.append(button);
-button.addEventListener('click', () => {
-    const image = document.createElement('img');
-    image.src = 'https://avatars3.githubusercontent.com/u/20858568?s=200&v=4';
-    body.append(image);
-    button.style.display = 'none';
-});
+function createImage() {
+    const body = document.querySelector('body');
+    const button = document.createElement('button');
+    button.innerText = 'click me';
+    body.append(button);
+    button.addEventListener('click', () => {
+        const image = document.createElement('img');
+        image.src = 'https://avatars3.githubusercontent.com/u/20858568?s=200&v=4';
+        body.append(image);
+        button.style.display = 'none';
+    });
+}
+createImage();
 
 /* 
 6. 
